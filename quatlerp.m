@@ -40,8 +40,8 @@ else
     Q2 = repmat(reshape(q2',1,4,N),M,1,1);
     
     q_avg = Q1*(1-t) + Q2*t;
+    q_avg = permute(q_avg,[3 2 1]);
 end
-q_avg = permute(q_avg,[3 2 1]);
-if size(q_avg,1) == 1 && ~strcmp('noreshape',method)
+if size(q_avg,1) == 1 && (M > 1 || N > 1) && ~strcmp('noreshape',method)
     q_avg = squeeze(q_avg)';
 end

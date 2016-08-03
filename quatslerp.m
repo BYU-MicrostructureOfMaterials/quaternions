@@ -23,7 +23,8 @@ function q_avg = quatslerp(q1,q2,t,method)
 % Brian Jackson July 2016
 % Brigham Young University
 
-sze = size(q1,1);
+M = size(q1,1);
+N = size(q2,1);
 if nargin == 3
     mtd = 'noreshape';
     method = 'default';
@@ -32,13 +33,14 @@ else
         error('Invalid method input')
     end
     if strcmp('element',method)
-        sze = 1;
+        M = 1;
+        mtd = 'element';
     else
         mtd = 'noreshape';
     end
 end
-q_avg = quatmult(quatpow(quatmult(q1,quatconj(q2),mtd),1-t),repmat(q2,1,1,sze),'element');
-if size(q_avg,1) == 1 && ~strcmp('noreshape',method)
+q_avg = quatmult(quatpow(quatmult(q1,quatconj(q2),mtd),1-t),repmat(q2,1,1,M),'element');
+if size(q_avg,1) == 1 && (M > 1 || N > 1) && ~strcmp('noreshape',method)
     q_avg = squeeze(q_avg)';
 end
 
