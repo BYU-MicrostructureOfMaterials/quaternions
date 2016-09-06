@@ -75,6 +75,6 @@ if nargout > 1
         q2_rot = repmat(q2,1,1,numq1);
     end
     
-    deltaq = quatmult(q1,quatconj(q2),method);
+    deltaq = quatmult(q1_rot,quatconj(q2_rot),method);
     
 end
