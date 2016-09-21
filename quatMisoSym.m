@@ -58,9 +58,9 @@ end
 I = squeeze(I);
 miso = squeeze(miso);
 if (numq1 == 1 || numq2 == 1) && isdef
-    I = I';
     miso = miso(:);
 end
+I = I';
 miso = miso';
 
 if nargout > 1
@@ -70,7 +70,7 @@ if nargout > 1
         q1_rot = permute(q1_sym2(I,:),[3 2 1]);
         q2_rot = permute(q2,[3 2 1]);
     else
-        I_all = sub2ind(size(q1_sym),repmat((1:numq1)',1,numq2,4),repmat(permute(1:4,[1 3 2]),numq1,numq2,1),repmat(I,1,1,4));
+        I_all = permute(sub2ind(size(q1_sym),repmat((1:numq2)',1,4),repmat(1:4,numq2,1),repmat(I,1,4)),[3 1 2]);
         q1_rot = permute(q1_sym(I_all),[2 3 1]);
         q2_rot = repmat(q2,1,1,numq1);
     end
